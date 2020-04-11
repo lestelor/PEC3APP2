@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PEC3App</string>
+    <string name="maps">Maps</string>
+    <string name="museus">Museums</string>
+    <string name="contacts">Contacts</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="setting">Settings</string>
+    <string name="help">Help</string>
+</resources>
