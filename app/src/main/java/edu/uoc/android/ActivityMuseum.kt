@@ -56,7 +56,7 @@ class ActivityMuseum : AppCompatActivity() {
 
 
             override fun onFailure(call: Call<Museums>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.d("Tipus resposta 10","Failure")
             }
 
 
@@ -67,7 +67,7 @@ class ActivityMuseum : AppCompatActivity() {
     private fun getllistamuseus(getelements: MutableList<Element>) : MutableList<Museubanner> {
         val llistamuseus = mutableListOf(Museubanner(nom=getelements[0].adrecaNom,url=getelements[0].imatge[0].toString()))
         if (getelements.size > 1) {
-            for (i in 1..getelements.size) {
+            for (i in 1..getelements.size-1) {
                 llistamuseus.add(
                     Museubanner(
                         nom = getelements[i]?.adrecaNom,
