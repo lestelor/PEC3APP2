@@ -13,7 +13,6 @@
 * See the License for the specific language governing permissions and
         * limitations under the License.
 */
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -21,12 +20,12 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdkVersion 28
     dataBinding {
         enabled = true
     }
     defaultConfig {
-        applicationId "com.google.samples.apps.sunflower"
+        applicationId "com.google.samples.apps.PEC3APP2"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -45,12 +44,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     // work-runtime-ktx 2.1.0 and above now requires Java 8
-kotlinOptions {
-    jvmTarget = "1.8"
-}
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
@@ -76,6 +76,10 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'com.google.android.gms:play-services-plus:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'pub.devrel:easypermissions:1.1.1'
 
     // Testing dependencies
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"

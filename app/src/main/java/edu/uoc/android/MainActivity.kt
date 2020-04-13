@@ -15,5 +15,11 @@ class MainActivity : AppCompatActivity() {
             val intent =Intent(this,ActivityMuseum::class.java)
             startActivity(intent)
         }
+
+        relay_maps.setOnClickListener{
+            val intent =Intent(this,MapsActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
