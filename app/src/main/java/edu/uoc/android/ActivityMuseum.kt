@@ -37,6 +37,7 @@ class ActivityMuseum : AppCompatActivity() {
                     val getelements = museums.getElements()
                     llistamuseus=getllistamuseus(getelements)
 
+
                     val recyclerView = rv_museums
                     recyclerView.layoutManager = LinearLayoutManager(mMyApp)
                     recyclerView.adapter =  MuseuAdapter(llistamuseus, mMyApp)
