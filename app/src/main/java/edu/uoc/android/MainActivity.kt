@@ -21,5 +21,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        relay_quizzes.setOnClickListener{
+            val intent =Intent(this,QuizzesActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

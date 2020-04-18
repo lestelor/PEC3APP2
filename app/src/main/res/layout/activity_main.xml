@@ -143,6 +143,8 @@
                     android:id="@+id/relay_quizzes"
                     android:layout_width="match_parent"
                     android:layout_weight="0.5"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:background="@color/limegreen"
                     android:layout_height="match_parent">
 
