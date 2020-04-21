@@ -27,5 +27,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        relay_setting.setOnClickListener{
+            val intent =Intent(this,SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
