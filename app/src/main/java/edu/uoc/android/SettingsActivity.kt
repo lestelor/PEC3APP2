@@ -1,22 +1,20 @@
 package edu.uoc.android
 
+
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Environment
-import android.os.Environment.getExternalStorageDirectory
 import android.provider.MediaStore
 import android.util.Log
-import androidx.core.content.FileProvider
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
+
 
 class SettingsActivity : AppCompatActivity() {
     val REQUEST_IMAGE_CAPTURE = 1
@@ -29,6 +27,16 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        val imgFile = File(getStorageDir() + File.separator + imageTheFile)
+
+        if (imgFile.exists()) {
+            val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
+            ivSetting.setImageBitmap(myBitmap)
+        } else {
+            tvSetting.text = "No hay imagen disponible"
+        }
+
         fabuttonSettings?.setOnClickListener { dispatchTakePictureIntent() }
 
     }
@@ -42,17 +50,22 @@ class SettingsActivity : AppCompatActivity() {
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
             this.ivSetting.setImageBitmap(imageBitmap)
-            val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.toString() + File.separator + folder
+
+            val storageDir=getStorageDir()
+
             Log.d("seguimiento", "foto storageDir $storageDir")
             val storageDirFile = File(storageDir)
-            storageDirFile.mkdirs()
+            if (!storageDirFile.exists()) {
+                storageDirFile.mkdirs()
+            }
             val imageFile = File(storageDirFile, imageTheFile)
             val stream = ByteArrayOutputStream()
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val fos = FileOutputStream(imageFile)
             fos.write(stream.toByteArray())
             fos.close()
-            this.ivSetting.setImageBitmap(imageBitmap)
+            Toast.makeText(applicationContext,"Imagen guardada",Toast.LENGTH_SHORT).show()
+            tvSetting.text = ""
         }
     }
 
@@ -64,23 +77,9 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        // Create an image file name
-        val aaa=Environment.getExternalStorageDirectory().toString()
-        Log.d("seguimiento", "foto directorio environment $aaa")
-        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        Log.d("seguimiento", "foto directorio $storageDir")
 
-        return File.createTempFile(
-            "imageapp", /* prefix */
-            ".jpg", /* suffix */
-            storageDir /* directory */
-            ).apply {
-            // Save a file: path for use with ACTION_VIEW intents
-
-            currentPhotoPath = absolutePath
-        }
+    private fun getStorageDir(): String {
+        return getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.toString() + File.separator + folder
     }
 
 
