@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PEC3App</string>
+    <string name="museus">Museus</string>
+    <string name="noImage">No hay imagen disponible</string>
+    <string name="pictureSaved">Imagen guardada</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="title_activity_maps2">Mapa</string>
+    <string name="help">Ayuda</string>
+    <string name="setting">Configuración</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="contacts">Contactos</string>
+    <string name="maps">Mapas</string>
+</resources>

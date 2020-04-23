@@ -8,4 +8,6 @@
     <string name="help">Help</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_maps2">Map</string>
+    <string name="noImage">No picture available</string>
+    <string name="pictureSaved">Picture saved</string>
 </resources>
