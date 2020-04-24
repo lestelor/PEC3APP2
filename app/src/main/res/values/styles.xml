@@ -7,11 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/whiteSmoke</item>
-
     </style>
-    <style name="AppTheme.SplashScreen" parent="Theme.AppCompat.NoActionBar">
+
+    <!-- Theme for the laucher splash activity. -->
+    <style name="AppTheme.SplashScreen" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_screen</item>
-        <item name="android:colorBackground">@color/whiteSmoke</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

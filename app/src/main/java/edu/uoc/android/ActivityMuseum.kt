@@ -1,7 +1,5 @@
 package edu.uoc.android
 
-
-
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,11 +22,16 @@ class ActivityMuseum : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_museum)
-        val mMyApp = this.applicationContext
-        var llistamuseus: MutableList<Museubanner> = mutableListOf()
 
+        // llistamuseus contains the list of museums defined in the class MuseumService, which
+        // contains the name and image of each museum
+        var llistamuseus: MutableList<Museubanner>
+        // Definition of the adaptor which calls the API MuseumService to get the objects in an specific URL
+        // and with the format specified in models-> Museums
         val museuService = RetrofitFactory()
 
+        // Safe call of the funtion included in the API, which retrieves elements from pagIni to PagFi
+        // Response code 200 in http correspond to ok
         museuService.museums("1","10")?.enqueue(object : Callback<Museums> {
             override fun onResponse(call: Call<Museums>, response: Response<Museums>) {
                 if (response.code() == 200) {
@@ -37,10 +40,13 @@ class ActivityMuseum : AppCompatActivity() {
                     val getelements = museums.getElements()
                     llistamuseus=getllistamuseus(getelements)
 
+                    // the recyclerView is attaches to the list_item layout
+                    // We call the adapter to fill the list_item as many times as the number
+                    // of elements of llistamuseus
 
                     val recyclerView = rv_museums
-                    recyclerView.layoutManager = LinearLayoutManager(mMyApp)
-                    recyclerView.adapter =  MuseuAdapter(llistamuseus, mMyApp)
+                    recyclerView.layoutManager = LinearLayoutManager(this@ActivityMuseum)
+                    recyclerView.adapter =  MuseuAdapter(llistamuseus, this@ActivityMuseum)
                 }
             }
 
@@ -54,15 +60,11 @@ class ActivityMuseum : AppCompatActivity() {
     }
 
     private fun getllistamuseus(getelements: MutableList<Element>) : MutableList<Museubanner> {
-        val llistamuseus = mutableListOf(Museubanner(nom=getelements[0].adrecaNom,url=getelements[0].imatge[0].toString()))
-        if (getelements.size > 1) {
+        val llistamuseus: MutableList<Museubanner> = mutableListOf()
+        if (getelements.size > 0) {
             for (i in 1..getelements.size-1) {
-                llistamuseus.add(
-                    Museubanner(
-                        nom = getelements[i]?.adrecaNom,
-                        url = getelements[i]?.imatge[0].toString()
-                    )
-                )
+                var q = Museubanner(getelements[i]?.adrecaNom,  url = getelements[i]?.imatge[0].toString())
+                llistamuseus.add(q)
             }
         }
         return llistamuseus

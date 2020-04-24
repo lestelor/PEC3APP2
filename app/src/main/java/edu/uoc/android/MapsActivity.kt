@@ -28,6 +28,12 @@ import retrofit2.Response
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
+
+    // As indicated in android developers https://developers.google.com/maps/documentation/android-sdk/start
+    // Previously it is necessary to get the google API key from the Google Cloud Platform Console
+    // (Maps SDK for Android) and store them in the manifest
+    // The app build gradle is sync with the maps library
+
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -43,10 +49,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
 
-        val mMyApp = this.applicationContext
-
-
-        // Find the user location
+        // Defines the structure of the user's location
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
 
@@ -63,13 +66,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
 
+        // Here we define the variable as an GoogleMap object resulting from the getMapAsync(this) function
+        mMap= googleMap
+        // ask for permissions
         if(checkPermissions()) {
             mMap.isMyLocationEnabled = true
         }
 
+        // Chose the type of map
         mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+        // Tries to get the last user location
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : Location? ->
                 val centroMapa= location?.let { onLocationChanged(it) }
@@ -81,7 +88,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
 
-        // This part calls the API and returns the museum's name and coordinates
+        // This part calls the API and returns the museum's name and coordinates, same as ActivityMuseum
         val museuService = RetrofitFactory()
 
 
@@ -91,9 +98,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     val museums = response.body()!!
                     val getelements = museums.getElements()
 
-
                     llistacoordenades  = getllistacoordenades(getelements)
                     val encontrar= ","
+                    // It is necessary to separate x from y, using the , separator
                     for(i in 0 until llistacoordenades.size) {
                         var posicion_separador= llistacoordenades[i].coordenades.indexOf(encontrar,0)
                         var utmx=llistacoordenades[i].coordenades.take(posicion_separador).toDouble()
@@ -121,15 +128,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
     private fun getllistacoordenades(getelements: MutableList<Element>) : MutableList<Museucoordenades> {
-        val llistacoordenades = mutableListOf(Museucoordenades(nom=getelements[0].adrecaNom,coordenades= getelements[0].localitzacio.toString()))
-        if (getelements.size > 1) {
+        val llistacoordenades: MutableList<Museucoordenades> = mutableListOf()
+        if (getelements.size > 0) {
             for (i in 1..getelements.size-1) {
-                llistacoordenades.add(
-                    Museucoordenades(
-                        nom = getelements[i]?.adrecaNom,
-                        coordenades = getelements[i]?.localitzacio
-                    )
-                )
+                var q = Museucoordenades(getelements[i]?.adrecaNom,getelements[i]?.localitzacio)
+                llistacoordenades.add(q)
             }
         }
         return llistacoordenades
@@ -142,6 +145,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return latLng
     }
 
+
+    // Check location permissions, but it is not needed for using google maps
     private fun checkPermissions(): Boolean {
         return if (ContextCompat.checkSelfPermission(
                 this,

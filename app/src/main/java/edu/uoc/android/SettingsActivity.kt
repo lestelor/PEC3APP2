@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -31,7 +32,8 @@ class SettingsActivity : AppCompatActivity() {
 
         val imgFile = File(getStorageDir() + File.separator + imageTheFile)
 
-        if (checkPermissions() && imgFile.exists()) {
+        // check permissions always true since minSDK 21 > manifest SDK version permision 18
+        if (checkPermissionsExternal() && imgFile.exists()) {
             val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
             ivSetting.setImageBitmap(myBitmap)
         } else {
@@ -41,6 +43,9 @@ class SettingsActivity : AppCompatActivity() {
         fabuttonSettings?.setOnClickListener { dispatchTakePictureIntent() }
 
     }
+
+
+    // We receive the thumbnail of the picture and store in SDCARD as result of the camera intent
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -60,16 +65,21 @@ class SettingsActivity : AppCompatActivity() {
                 storageDirFile.mkdirs()
             }
             val imageFile = File(storageDirFile, imageTheFile)
+            // Create the buffer
             val stream = ByteArrayOutputStream()
+            // the compressed image is the same quality as the thumbnail of the image
+            // Put the thumbnail in the buffer and save it
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val fos = FileOutputStream(imageFile)
             fos.write(stream.toByteArray())
             fos.close()
+            // save the picture and remove the advisory comment
             Toast.makeText(applicationContext,getString(R.string.pictureSaved),Toast.LENGTH_SHORT).show()
             tvSetting.text = ""
         }
     }
 
+    // Launch the photo app as an intent
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
@@ -79,32 +89,40 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    // The sdcard directory is equal to the partition storage/emulated/0 which corresponds to the public external storage
+    // See https://imnotyourson.com/which-storage-directory-should-i-use-for-storing-on-android-6/
+    // The pricate external storage is storage/emulated/0/Android/data/edu.uoc.android
+    // The pictures are in storage/emulated/0/Android/data/edu.uoc.android/files/Pictures/UOCImageAPP/
+    // To save in other location needs to be analyzed if package_paths is to be used.
 
     private fun getStorageDir(): String {
         return getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.toString() + File.separator + folder
     }
 
-    private fun checkPermissions(): Boolean {
-        return if (ContextCompat.checkSelfPermission(
+    // Check camera permissions if the hardware SDK is < 18
+    // Beyond sdk version 18 is no longer needed and it is the case that the min SDK v<to run the app is version 21
+
+    private fun checkPermissionsExternal(): Boolean {
+        Log.d("seguimiento", "foto versionsdkint ${Build.VERSION.SDK_INT}")
+        Log.d("seguimiento", "foto versioncode ${Build.VERSION_CODES.P}")
+        return if ((ContextCompat.checkSelfPermission(
                 this,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        ) || (Build.VERSION.SDK_INT>18)){
             true
         } else {
-            requestPermissions()
+            requestPermissionsExternal()
             false
         }
     }
 
-    private fun requestPermissions() {
+    private fun requestPermissionsExternal() {
         ActivityCompat.requestPermissions(
             this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
             REQUEST_EXTERNAL_STORAGE
         )
     }
-
-
 
     companion object {
         private const val REQUEST_EXTERNAL_STORAGE = 1

@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 
+// The Main activity layout is defined as a set of 6 relative laouts organized a a matrix of 3 files
+// and 2 columns. Several relative layous are clickable. Here is defined the Activity that is to be
+// launched when clicking each of them
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

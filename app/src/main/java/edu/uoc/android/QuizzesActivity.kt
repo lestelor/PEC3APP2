@@ -10,6 +10,7 @@ import edu.uoc.android.rest.QuestionQuizzes
 import edu.uoc.android.rest.QuizzesAdapter
 import kotlinx.android.synthetic.main.activity_quizzes.*
 
+// Firestore database of google cloud services. It is important to define the Cloud Firestore API
 
 class QuizzesActivity : AppCompatActivity() {
 
@@ -23,24 +24,25 @@ class QuizzesActivity : AppCompatActivity() {
         Log.d("Control","control activity creada")
         val recyclerView = rv_quizzes
 
-
+        // Safe call to the database stored in the google console
         db.collection("Quizzes")
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    // stops the clock bar in the layout
                     indeterminateBarQuizzes.setVisibility(View.GONE)
                     recyclerView.setHasFixedSize(true)
                     recyclerView.layoutManager = LinearLayoutManager(this@QuizzesActivity)
                     var questionList: MutableList<QuestionQuizzes> = mutableListOf()
                     for (document in task.result!!) {
-                        //
+                        // Each document of Quizzes database cointains the information of one museum
 
-                        var image = document.data["image"].toString()
-                        var choice1 = document.data["choice1"].toString()
-                        var choice2 = document.data["choice2"].toString()
-                        var rightChoice = document.data["rightChoice"].toString()
-                        var title = document.data["title"].toString()
-                        var q = QuestionQuizzes(image,rightChoice.toString(),title.toString(),choice1.toString(),choice2.toString())
+                        var image = document.data["image"]
+                        var choice1 = document.data["choice1"]
+                        var choice2 = document.data["choice2"]
+                        var rightChoice = document.data["rightChoice"]
+                        var title = document.data["title"]
+                        var q = QuestionQuizzes(image.toString(),rightChoice.toString(),title.toString(),choice1.toString(),choice2.toString())
                         questionList.add(q)
 
                         Log.d("Control","control document created " + document.data + " " )

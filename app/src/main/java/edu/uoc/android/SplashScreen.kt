@@ -8,7 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 
 class SplashScreen : AppCompatActivity() {
 
-    private val DURACION_SPLASH = 1000
+    // Welcome screen. The duration is set as an illustrative example on how to create a delay.
+    // This activity is defined in the Manifest as the first activity to be launched
+    // In the styles.xml is defined @style/AppTheme.SplashScreen setting as background the UOC picture
+
+    private val DURACION_SPLASH = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
