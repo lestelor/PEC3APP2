@@ -57,10 +57,8 @@
                             android:textColor="@color/white"
                             android:layout_below="@id/imgView1"/>
                     </RelativeLayout>
-
-
-
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:id="@+id/relay_museums"
                     android:clickable="true"

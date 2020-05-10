@@ -37,12 +37,13 @@ class QuizzesActivity : AppCompatActivity() {
                     for (document in task.result!!) {
                         // Each document of Quizzes database cointains the information of one museum
 
-                        var image = document.data["image"]
-                        var choice1 = document.data["choice1"]
-                        var choice2 = document.data["choice2"]
-                        var rightChoice = document.data["rightChoice"]
-                        var title = document.data["title"]
-                        var q = QuestionQuizzes(image.toString(),rightChoice.toString(),title.toString(),choice1.toString(),choice2.toString())
+                        var image = document.data["image"].toString()
+                        var choice1 = document.data["choice1"].toString()
+                        var choice2 = document.data["choice2"].toString()
+                        var rightChoice = document.data["rightChoice"].toString()
+                        var title = document.data["title"].toString()
+                        var q = QuestionQuizzes(image,rightChoice,title,choice1,choice2)
+
                         questionList.add(q)
 
                         Log.d("Control","control document created " + document.data + " " )

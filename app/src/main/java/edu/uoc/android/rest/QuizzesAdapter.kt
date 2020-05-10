@@ -15,7 +15,11 @@ class QuizzesAdapter(val items : MutableList<QuestionQuizzes>, val context: Cont
 
     // Gets the number of animals in the list
     override fun getItemCount(): Int {
-        return items.size
+        if (items != null) {
+            return items.size
+        } else{
+            return 0
+        }
     }
 
     // Inflates the item views
@@ -25,15 +29,15 @@ class QuizzesAdapter(val items : MutableList<QuestionQuizzes>, val context: Cont
 
     // Binds each animal in the ArrayList to a view
     override fun onBindViewHolder(holder: ViewHolder2, position: Int) {
-        holder?.tvtitle.text = items[position].title
-        holder?.tvchoice1.text = items[position].choice1
-        holder?.tvchoice2.text = items[position].choice2
-        if (items[position].rightChoice == "0") {
+        holder.tvtitle.text = items?.get(position)?.title
+        holder.tvchoice1.text = items?.get(position)?.choice1
+        holder.tvchoice2.text = items?.get(position)?.choice2
+        if (items?.get(position)?.rightChoice == "0") {
             holder?.tvchoice1.setTypeface(null,Typeface.BOLD)
         } else {
             holder?.tvchoice2.setTypeface(null,Typeface.BOLD)
         }
-        Picasso.get().load(items[position].image).into(holder?.ivimage)
+        Picasso.get().load(items?.get(position)?.image).into(holder?.ivimage)
     }
 
 }

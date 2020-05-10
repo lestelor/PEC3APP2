@@ -1,10 +1,14 @@
 package edu.uoc.android.rest
 
-class QuestionQuizzes (
+open class QuestionQuizzes(
+     var image: String,
+     var rightChoice: String,
+     var title: String,
+     var choice1: String,
+     var choice2: String
+) {
 
-    var image:String,
-    var rightChoice: String,
-    var title: String,
-    var choice1: String,
-    var choice2:String
-)
+fun getRightCchoice(): String {
+     return rightChoice
+}
+}
