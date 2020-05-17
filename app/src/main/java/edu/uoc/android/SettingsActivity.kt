@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -26,9 +27,22 @@ class SettingsActivity : AppCompatActivity() {
     val folder = "UOCImageAPP/"
     val imageTheFile = "imageApp.jpg"
 
+    /**
+     * The `FirebaseAnalytics` used to record screen views.
+     */
+    // [START declare_analytics]
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+    // [END declare_analytics]
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        // [START shared_app_measurement]
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        // [END shared_app_measurement]
+        firebaseAnalytics.setCurrentScreen(this, "Settings", null /* class override */)
 
         val imgFile = File(getStorageDir() + File.separator + imageTheFile)
 
@@ -42,8 +56,8 @@ class SettingsActivity : AppCompatActivity() {
 
         fabuttonSettings?.setOnClickListener { dispatchTakePictureIntent() }
 
-    }
 
+    }
 
     // We receive the thumbnail of the picture and store in SDCARD as result of the camera intent
 
@@ -52,6 +66,13 @@ class SettingsActivity : AppCompatActivity() {
         Log.d("seguimiento", "foto requestcode $requestCode")
         Log.d("seguimiento", "foto resultcode $resultCode")
 
+        // [START image_view_event]
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Captura de imagen")
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle)
+        // [END image_view_event]
 
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             val imageBitmap = data?.extras?.get("data") as Bitmap

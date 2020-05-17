@@ -3,6 +3,7 @@ package edu.uoc.android
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.crashlytics.android.Crashlytics
 import kotlinx.android.synthetic.main.activity_main.*
 
 // The Main activity layout is defined as a set of 6 relative laouts organized a a matrix of 3 files
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
             val intent =Intent(this,SettingsActivity::class.java)
             startActivity(intent)
         }
-
+        relay_help.setOnClickListener{
+        Crashlytics.getInstance().crash()
+        }
     }
 }

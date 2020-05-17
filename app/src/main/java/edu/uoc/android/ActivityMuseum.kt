@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.analytics.FirebaseAnalytics
 import edu.uoc.android.R.layout.activity_museum
 import edu.uoc.android.models.Element
 import edu.uoc.android.models.Museums
@@ -18,6 +19,12 @@ import retrofit2.Response
 
 
 class ActivityMuseum : AppCompatActivity() {
+    /**
+     * The `FirebaseAnalytics` used to record screen views.
+     */
+    // [START declare_analytics]
+    //private lateinit var firebaseAnalytics: FirebaseAnalytics
+    // [END declare_analytics]
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +64,7 @@ class ActivityMuseum : AppCompatActivity() {
 
         })
 
+        //firebaseAnalytics.setCurrentScreen(this, "Settings", null /* class override */)
     }
 
     private fun getllistamuseus(getelements: MutableList<Element>) : MutableList<Museubanner> {
