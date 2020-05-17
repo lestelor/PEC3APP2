@@ -11,6 +11,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.MockitoAnnotations
+import org.mockito.internal.matchers.Contains
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.InputStream
@@ -30,23 +31,13 @@ class BackendRest {
         MockitoAnnotations.initMocks(this)
         val mockServer = MockWebServer()
         mockServer.start()
+
+
     }
 
     @After
     fun teardown() {
         mockServer.shutdown()
-    }
-
-
-    @Test
-    fun testMuseums() {
-        val url: URL = mockServer.url("/api/dataset/museus/").toUrl()
-
-        mockServer.enqueue(MockResponse().setBody(Utils.BODY))
-        val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-        val `in`: InputStream = connection.inputStream
-        val response: String = String(`in`.readBytes())
-        Assert.assertEquals(Utils.BODY, response)
     }
 
     @Test
@@ -72,5 +63,37 @@ class BackendRest {
         Assert.assertEquals(1,
             responseApi?.elements?.size)
     }
+    @Test
+    fun testMuseumsEnqueue() {
+        val url: URL = mockServer.url("/api/dataset/museus/").toUrl()
+        val request = MockResponse()
+            .setBody(Utils.BODY)
+        mockServer.enqueue(request)
 
+
+        val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+        val `in`: InputStream = connection.inputStream
+        val response: String = String(`in`.readBytes())
+        Assert.assertEquals(Utils.BODY, response)
+    }
+
+    @Test
+    fun testMuseumsDispatcher() {
+        val url: URL = mockServer.url("/api/dataset/museus/").toUrl()
+        val mdispatcher: Dispatcher = object : Dispatcher() {
+            @Throws(InterruptedException::class)
+            override fun dispatch(request: RecordedRequest): MockResponse {
+                when (request.path) {
+                    "/api/dataset/museus/" -> return MockResponse().setResponseCode(200).setBody(Utils.BODY)
+                }
+                return MockResponse().setResponseCode(404)
+            }
+        }
+        mockServer.dispatcher= mdispatcher
+        // connection.responseCode = 200 if url = "/api/dataset/museus/". The dispatcher returns Utils.BODY
+        val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+        val `in`: InputStream = connection.inputStream
+        val response: String = String(`in`.readBytes())
+        Assert.assertEquals(Utils.BODY, response)
+    }
 }
