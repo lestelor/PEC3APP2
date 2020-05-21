@@ -22,9 +22,8 @@ import java.net.URL
 //import kotlinx.android.synthetic.main.activity_museum.*;
 class BackendRest {
     var mockServer = MockWebServer()
-    private lateinit var apiMuseums: MuseumService
-    //private lateinit var apiMuseums2: MuseumService2
 
+    // the mockServer is simulated here
     @Before
     @Throws(Exception::class)
     fun init() {
@@ -39,7 +38,8 @@ class BackendRest {
     fun teardown() {
         mockServer.shutdown()
     }
-
+    // The first test the Utils.BODY is enqueued as response to the server. Additionally the response is
+    // received though a Retrofit in form of a Museum class. Then it is compared one element of the class with the actual value
     @Test
     fun testMuseumsRetrofit() {
 
@@ -63,6 +63,8 @@ class BackendRest {
         Assert.assertEquals(1,
             responseApi?.elements?.size)
     }
+
+    // In the second test the enqueued answer is compared with the actual value
     @Test
     fun testMuseumsEnqueue() {
         val url: URL = mockServer.url("/api/dataset/museus/").toUrl()
@@ -76,7 +78,7 @@ class BackendRest {
         val response: String = String(`in`.readBytes())
         Assert.assertEquals(Utils.BODY, response)
     }
-
+    // The third test uses a dispatcher that sets as a body Utils.BODY and responsecode=200 when the path is /api/dataset/museus/
     @Test
     fun testMuseumsDispatcher() {
         val url: URL = mockServer.url("/api/dataset/museus/").toUrl()

@@ -42,7 +42,9 @@ class SettingsActivity : AppCompatActivity() {
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         // [END shared_app_measurement]
-        firebaseAnalytics.setCurrentScreen(this, "Settings", null /* class override */)
+
+        firebaseAnalytics.setCurrentScreen(this, "Settings", "Nombre activity: " + javaClass.simpleName /* class override */)
+        Log.d("Activity", "Nombre activity: " + javaClass.simpleName)
 
         val imgFile = File(getStorageDir() + File.separator + imageTheFile)
 
@@ -58,6 +60,7 @@ class SettingsActivity : AppCompatActivity() {
 
 
     }
+
 
     // We receive the thumbnail of the picture and store in SDCARD as result of the camera intent
 

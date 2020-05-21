@@ -18,10 +18,11 @@ class QuestionQuizzesTest {
     //Not necessary to pass any parrameter
     //private var righChoice:String = "1"
 
-
+    //The class QuestionQuizzes is simulated. So no need to fill the data.
     @Mock
     var mMockQuestionQuizzes: QuestionQuizzes? = null
 
+    //The object questionQuizzes is simulated. So no need to fill the data.
     @Before
     fun before() {
 
@@ -30,6 +31,7 @@ class QuestionQuizzesTest {
         questionQuizzes = mMockQuestionQuizzes
     }
 
+    // The list is filled with mocked data. Then we check that the call is correctly done
     @Test
     fun QuestionQuizzes_getrightchoice() {
         //Not necessary to define the actual value.

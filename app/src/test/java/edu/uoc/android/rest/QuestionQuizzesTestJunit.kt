@@ -6,7 +6,7 @@ import org.junit.Test
 
 
 class QuestionQuizzesTestJunit {
-
+    // In this test we simply fill the data and check that the call getRightCchoice() is correctly implemented
     @Test
     fun getRightChoice() {
 
