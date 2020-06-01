@@ -11,7 +11,6 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.MockitoAnnotations
-import org.mockito.internal.matchers.Contains
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.InputStream

@@ -1,4 +1,4 @@
-package edu.uoc.android
+package edu.uoc.android.fauliclaudi
 
 import android.os.Bundle
 import android.util.Log
@@ -6,8 +6,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
-import edu.uoc.android.rest.QuestionQuizzes
-import edu.uoc.android.rest.QuizzesAdapter
+import edu.uoc.android.fauliclaudi.rest.QuestionQuizzes
+import edu.uoc.android.fauliclaudi.rest.QuizzesAdapter
+
 import kotlinx.android.synthetic.main.activity_quizzes.*
 
 // Firestore database of google cloud services. It is important to define the Cloud Firestore API
@@ -42,14 +43,24 @@ class QuizzesActivity : AppCompatActivity() {
                         var choice2 = document.data["choice2"].toString()
                         var rightChoice = document.data["rightChoice"].toString()
                         var title = document.data["title"].toString()
-                        var q = QuestionQuizzes(image,rightChoice,title,choice1,choice2)
+                        var q = QuestionQuizzes(
+                            image,
+                            rightChoice,
+                            title,
+                            choice1,
+                            choice2
+                        )
 
                         questionList.add(q)
 
                         Log.d("Control","control document created " + document.data + " " )
                     }
 
-                    recyclerView.adapter =  QuizzesAdapter(questionList, this@QuizzesActivity)
+                    recyclerView.adapter =
+                        QuizzesAdapter(
+                            questionList,
+                            this@QuizzesActivity
+                        )
 
                 } else {
                     Log.w("Error", "Error getting Firebase", task.exception)

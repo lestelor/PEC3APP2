@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:436003144935:android:a1b3674f3c5a48894a8e42",
         "android_client_info": {
-          "package_name": "edu.uoc.android"
+          "package_name": "edu.uoc.android.fauliclaudi"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "436003144935-dlthcqep5vnj6kutlfletob19abn52mc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "edu.uoc.android",
+            "package_name": "edu.uoc.android.fauliclaudi",
             "certificate_hash": "cb8dbb832a503443ab35e1eaf2c2b8846c8605e2"
           }
         },

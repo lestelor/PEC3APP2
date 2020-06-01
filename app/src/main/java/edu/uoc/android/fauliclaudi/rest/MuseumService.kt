@@ -1,11 +1,10 @@
-package edu.uoc.android.rest
+package edu.uoc.android.fauliclaudi.rest
 
 
-import edu.uoc.android.models.Museums
+import edu.uoc.android.fauliclaudi.rest.models.Museums
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 
 interface MuseumService {

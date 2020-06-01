@@ -1,4 +1,4 @@
-package edu.uoc.android
+package edu.uoc.android.fauliclaudi
 
 
 import android.Manifest
@@ -18,9 +18,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import edu.uoc.android.models.Element
-import edu.uoc.android.models.Museums
-import edu.uoc.android.rest.RetrofitFactory
+import edu.uoc.android.fauliclaudi.rest.RetrofitFactory
+import edu.uoc.android.fauliclaudi.rest.models.Element
+import edu.uoc.android.fauliclaudi.rest.models.Museums
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -131,7 +131,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val llistacoordenades: MutableList<Museucoordenades> = mutableListOf()
         if (getelements.size > 0) {
             for (i in 1..getelements.size-1) {
-                var q = Museucoordenades(getelements[i]?.adrecaNom,getelements[i]?.localitzacio)
+                var q = Museucoordenades(
+                    getelements[i]?.adrecaNom,
+                    getelements[i]?.localitzacio
+                )
                 llistacoordenades.add(q)
             }
         }

@@ -1,4 +1,4 @@
-package edu.uoc.android.rest
+package edu.uoc.android.fauliclaudi.rest
 
 import android.content.Context
 import android.graphics.Typeface
@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import edu.uoc.android.R
+import edu.uoc.android.fauliclaudi.R
+
 
 import kotlinx.android.synthetic.main.list_quizzes.view.*
 
@@ -24,7 +25,9 @@ class QuizzesAdapter(val items : MutableList<QuestionQuizzes>, val context: Cont
 
     // Inflates the item views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder2 {
-        return ViewHolder2(LayoutInflater.from(context).inflate(R.layout.list_quizzes, parent, false))
+        return ViewHolder2(
+            LayoutInflater.from(context).inflate(R.layout.list_quizzes, parent, false)
+        )
     }
 
     // Binds each animal in the ArrayList to a view

@@ -1,4 +1,4 @@
-package edu.uoc.android.rest;
+package edu.uoc.android.fauliclaudi.rest;
 
 
 public class APIConstants {

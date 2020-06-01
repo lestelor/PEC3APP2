@@ -1,4 +1,4 @@
-package edu.uoc.android
+package edu.uoc.android.fauliclaudi
 
 import android.content.Intent
 import android.os.Bundle

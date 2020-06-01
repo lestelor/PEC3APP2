@@ -1,5 +1,5 @@
 
-package edu.uoc.android.models;
+package edu.uoc.android.fauliclaudi.rest.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -43,7 +43,7 @@ public class Museums {
     private String homePage;
     @SerializedName("referencies")
     @Expose
-    private List<edu.uoc.android.models.Referency> referencies = null;
+    private List<Referency> referencies = null;
     @SerializedName("tipus")
     @Expose
     private String tipus;
@@ -61,7 +61,7 @@ public class Museums {
     private Integer entitats;
     @SerializedName("elements")
     @Expose
-    private List<edu.uoc.android.models.Element> elements = null;
+    private List<Element> elements = null;
 
     public String getNom() {
         return nom;
@@ -151,11 +151,11 @@ public class Museums {
         this.homePage = homePage;
     }
 
-    public List<edu.uoc.android.models.Referency> getReferencies() {
+    public List<Referency> getReferencies() {
         return referencies;
     }
 
-    public void setReferencies(List<edu.uoc.android.models.Referency> referencies) {
+    public void setReferencies(List<Referency> referencies) {
         this.referencies = referencies;
     }
 
@@ -199,11 +199,11 @@ public class Museums {
         this.entitats = entitats;
     }
 
-    public List<edu.uoc.android.models.Element> getElements() {
+    public List<Element> getElements() {
         return elements;
     }
 
-    public void setElements(List<edu.uoc.android.models.Element> elements) {
+    public void setElements(List<Element> elements) {
         this.elements = elements;
     }
 

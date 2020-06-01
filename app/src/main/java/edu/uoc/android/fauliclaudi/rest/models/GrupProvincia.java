@@ -1,5 +1,5 @@
 
-package edu.uoc.android.models;
+package edu.uoc.android.fauliclaudi.rest.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

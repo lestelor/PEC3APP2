@@ -1,17 +1,15 @@
-package edu.uoc.android
+package edu.uoc.android.fauliclaudi
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.analytics.FirebaseAnalytics
-import edu.uoc.android.R.layout.activity_museum
-import edu.uoc.android.models.Element
-import edu.uoc.android.models.Museums
-import edu.uoc.android.rest.MuseuAdapter
-import edu.uoc.android.rest.Museubanner
-import edu.uoc.android.rest.RetrofitFactory
+import edu.uoc.android.fauliclaudi.rest.MuseuAdapter
+import edu.uoc.android.fauliclaudi.rest.Museubanner
+import edu.uoc.android.fauliclaudi.rest.RetrofitFactory
+import edu.uoc.android.fauliclaudi.rest.models.Element
+import edu.uoc.android.fauliclaudi.rest.models.Museums
 import kotlinx.android.synthetic.main.activity_museum.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +26,7 @@ class ActivityMuseum : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(activity_museum)
+        setContentView(R.layout.activity_museum)
 
         // llistamuseus contains the list of museums defined in the class MuseumService, which
         // contains the name and image of each museum
@@ -53,7 +51,10 @@ class ActivityMuseum : AppCompatActivity() {
 
                     val recyclerView = rv_museums
                     recyclerView.layoutManager = LinearLayoutManager(this@ActivityMuseum)
-                    recyclerView.adapter =  MuseuAdapter(llistamuseus, this@ActivityMuseum)
+                    recyclerView.adapter = MuseuAdapter(
+                        llistamuseus,
+                        this@ActivityMuseum
+                    )
                 }
             }
 
@@ -71,7 +72,10 @@ class ActivityMuseum : AppCompatActivity() {
         val llistamuseus: MutableList<Museubanner> = mutableListOf()
         if (getelements.size > 0) {
             for (i in 1..getelements.size-1) {
-                var q = Museubanner(getelements[i]?.adrecaNom,  url = getelements[i]?.imatge[0].toString())
+                var q = Museubanner(
+                    getelements[i]?.adrecaNom,
+                    url = getelements[i]?.imatge[0].toString()
+                )
                 llistamuseus.add(q)
             }
         }
