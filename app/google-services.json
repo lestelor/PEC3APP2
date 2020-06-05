@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:436003144935:android:a1b3674f3c5a48894a8e42",
+        "mobilesdk_app_id": "1:436003144935:android:d677b000bc50ed574a8e42",
         "android_client_info": {
-          "package_name": "edu.uoc.android.fauliclaudi"
+          "package_name": "edu.uoc.android.fauliclaudi22"
         }
       },
       "oauth_client": [
         {
-          "client_id": "436003144935-dlthcqep5vnj6kutlfletob19abn52mc.apps.googleusercontent.com",
+          "client_id": "436003144935-73537h92rp1bue9mp7djq92p4qneg3on.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "edu.uoc.android.fauliclaudi",
+            "package_name": "edu.uoc.android.fauliclaudi22",
             "certificate_hash": "cb8dbb832a503443ab35e1eaf2c2b8846c8605e2"
           }
         },

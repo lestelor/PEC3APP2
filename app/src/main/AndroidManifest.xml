@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.uoc.android.fauliclaudi">
+    package="edu.uoc.android.fauliclaudi22">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -47,16 +47,16 @@
             android:value="@string/google_maps_key" />
 
 
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".QuizzesActivity" />
+        <activity android:name="edu.uoc.android.fauliclaudi22.SettingsActivity" />
+        <activity android:name="edu.uoc.android.fauliclaudi22.QuizzesActivity" />
         <activity
-            android:name=".MapsActivity"
+            android:name="edu.uoc.android.fauliclaudi22.MapsActivity"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ActivityMuseum" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="edu.uoc.android.fauliclaudi22.ActivityMuseum" />
+        <activity android:name="edu.uoc.android.fauliclaudi22.MainActivity" />
         <activity
-            android:name=".SplashScreen"
+            android:name="edu.uoc.android.fauliclaudi22.SplashScreen"
             android:theme="@style/AppTheme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
